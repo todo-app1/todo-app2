@@ -1,5 +1,4 @@
-# ui.py
-from logic import Task  # <-- ЭТОЙ СТРОКИ ТЕБЕ НЕ ХВАТАЛО РАНЬШЕ
+from logic import Task
 
 class ConsoleUI:
     def __init__(self, manager):
@@ -27,27 +26,21 @@ class ConsoleUI:
                 title = input("Название дела: ")
                 deadline = input("Срок (ГГГГ-ММ-ДД): ")
                 try:
-                    task = Task(title, deadline)
+                    task = Task(title, deadline) # Теперь Python знает, что это
                     self.manager.add_task(task)
                     print("Дело добавлено.")
                 except ValueError as e:
                     print(f"Ошибка: {e}")
 
             elif choice == "2":
-                try:
-                    num = int(input("Введите номер дела: ")) - 1
-                    self.manager.mark_done(num)
-                    print("Дело отмечено как выполненное.")
-                except (ValueError, IndexError):
-                    print("Неверный номер дела.")
+                num = int(input("Введите номер дела: ")) - 1
+                self.manager.mark_done(num)
+                print("Дело отмечено как выполненное.")
 
             elif choice == "3":
-                try:
-                    num = int(input("Введите номер дела: ")) - 1
-                    self.manager.remove_task(num)
-                    print("Дело удалено.")
-                except (ValueError, IndexError):
-                    print("Неверный номер дела.")
+                num = int(input("Введите номер дела: ")) - 1
+                self.manager.remove_task(num)
+                print("Дело удалено.")
 
             elif choice == "0":
                 break
