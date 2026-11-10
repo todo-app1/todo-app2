@@ -10,7 +10,7 @@ class Task:
         try:
             datetime.datetime.strptime(deadline, "%Y-%m-%d")
         except ValueError:
-            raise ValueError("Срок должен быть в формате ГГГГ-ММ-ДД (например, 2026-11-10)")
+            raise ValueError("Срок должен быть в формате ГГГГ-ММ-ДД")
         
         self.title = clean_title
         self.deadline = deadline
@@ -27,7 +27,6 @@ class Task:
     def from_dict(cls, data: dict) -> "Task":
         return cls(data["title"], data["deadline"], data.get("done", False))
 
-    # Метод для теста test_mark_done
     def mark_done(self) -> None:
         self.done = True
 
@@ -52,14 +51,13 @@ class TaskManager:
         if 0 <= index < len(self.tasks):
             self.tasks.pop(index)
         else:
-            raise ValueError(f"Задача с индексом {index} не найдена")
+            raise ValueError("Задача не найдена")
 
-    # Метод для менеджера (удаляет по индексу)
     def mark_done(self, index: int) -> None:
         if 0 <= index < len(self.tasks):
             self.tasks[index].done = True
         else:
-            raise ValueError(f"Задача с индексом {index} не найдена")
+            raise ValueError("Задача не найдена")
 
     def get_all(self):
         return list(self.tasks)
@@ -70,6 +68,5 @@ class TaskManager:
     def count(self):
         return len(self.tasks)
 
-    # Метод для задания 4.1 (сортировка)
     def get_sorted_by_deadline(self):
         return sorted(self.tasks, key=lambda t: t.deadline)

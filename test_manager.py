@@ -17,7 +17,7 @@ class TestTaskManager(unittest.TestCase):
         self.assertEqual(self.manager.count(), 2)
 
     def test_mark_done_and_get_pending(self):
-        self.manager.mark_done(0) # Помечаем "Хлеб" по индексу
+        self.manager.mark_done(0)
         pending = self.manager.get_pending()
         self.assertEqual([t.title for t in pending], ["Цветы"])
 
@@ -38,8 +38,5 @@ class TestTaskManager(unittest.TestCase):
         result = self.manager.get_sorted_by_deadline()
         self.assertEqual([t.title for t in result], ["Раньше", "Хлеб", "Цветы"])
 
-if __name__ == "__main__":def test_get_sorted_by_deadline(self):
-    self.manager.add_task(Task("Раньше", "2025-10-01"))
-    result = self.manager.get_sorted_by_deadline()
-    self.assertEqual([t.title for t in result], ["Раньше", "Хлеб", "Цветы"])
+if __name__ == "__main__":
     unittest.main()
