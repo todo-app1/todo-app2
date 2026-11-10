@@ -38,5 +38,8 @@ class TestTaskManager(unittest.TestCase):
         result = self.manager.get_sorted_by_deadline()
         self.assertEqual([t.title for t in result], ["Раньше", "Хлеб", "Цветы"])
 
-if __name__ == "__main__":
+if __name__ == "__main__":def test_get_sorted_by_deadline(self):
+    self.manager.add_task(Task("Раньше", "2025-10-01"))
+    result = self.manager.get_sorted_by_deadline()
+    self.assertEqual([t.title for t in result], ["Раньше", "Хлеб", "Цветы"])
     unittest.main()
