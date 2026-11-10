@@ -10,7 +10,7 @@ class Storage:
     def save(self, tasks: list[Task]) -> None:
         data = [task.to_dict() for task in tasks]
         
-        # Задание 4.3* (резервная копия)
+        # Задание 4.3* (Резервная копия)
         backup_path = f"{self.path}.bak"
         if os.path.exists(self.path):
             try:
@@ -25,7 +25,7 @@ class Storage:
             if os.path.exists(backup_path):
                 os.remove(backup_path)
         except Exception:
-            # Если что-то пошло не так, возвращаем бэкап
+            # Если запись упала, возвращаем бэкап
             if os.path.exists(backup_path):
                 os.replace(backup_path, self.path)
             raise
@@ -35,7 +35,7 @@ class Storage:
             with open(self.path, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except FileNotFoundError:
-            return [] # Файла нет — это первый запуск
+            return [] # Файла нет — первый запуск
         except json.JSONDecodeError as e:
             # Файл есть, но он сломан
             raise ValueError(f"Файл задач поврежден: {e}") from e

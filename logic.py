@@ -3,14 +3,15 @@ import datetime
 
 class Task:
     def __init__(self, title: str, deadline: str, done: bool = False):
+        # Проверка названия
         if not title.strip():
             raise ValueError("Название дела не может быть пустым")
         
-        # Проверяем дату. Если формат не ГГГГ-ММ-ДД, выдаем понятную ошибку
+        # Задание 4.2: Проверка даты
         try:
             datetime.datetime.strptime(deadline, "%Y-%m-%d")
         except ValueError:
-            raise ValueError("Срок должен быть в формате ГГГГ-ММ-ДД (например, 2025-12-31)")
+            raise ValueError("Срок должен быть в формате ГГГГ-ММ-ДД (например, 2026-11-10)")
         
         self.title = title
         self.deadline = deadline
@@ -20,7 +21,7 @@ class Task:
         status = "x" if self.done else " "
         return f"[{status}] {self.title} (срок: {self.deadline})"
 
-    # --- Задание 1.1: превращаем объект в словарь ---
+    # Задание 1.1: Превращаем объект в словарь
     def to_dict(self) -> dict:
         return {
             "title": self.title,
@@ -28,14 +29,14 @@ class Task:
             "done": self.done
         }
 
-    # --- Задание 1.1: собираем объект из словаря ---
+    # Задание 1.1: Собираем объект из словаря
     @classmethod
     def from_dict(cls, data: dict) -> "Task":
         return cls(data["title"], data["deadline"], data.get("done", False))
 
 
 class TaskManager:
-    def __init__(self, storage=None): # storage пока может быть пустым
+    def __init__(self, storage=None):
         self.storage = storage
         self.tasks: list[Task] = []
 
@@ -47,10 +48,10 @@ class TaskManager:
         if self.storage:
             self.storage.save(self.get_all())
 
-    # --- Методы управления делами (из лаб №5) ---
+    # --- Методы управления (из лаб №5) ---
     def add_task(self, task: Task) -> None:
         self.tasks.append(task)
-        # Задание 4.1* (автосохранение): раскомментируй строку ниже, если нужно
+        # Задание 4.1* (Автосохранение): раскомментируй строку ниже, если нужно
         # self.save()
 
     def remove_task(self, index: int) -> None:
